@@ -1,0 +1,18 @@
+Data found in df_total.csv
+=============================
+
+timestamps: time in UNIX format
+
+true_lat: latitude of ground truth path
+true_lon: longitude of ground truth path
+true_x: ground truth path with respect to X-axis
+true_y: ground truth path with respect to Y-axis
+
+ax: acceleration with respect to X-axis
+ay: acceleration with respect to Y-axis
+
+gnss_lat: latitude of GNSS path
+gnss_lon: longitude of GNSS path
+gnss_x: GNSS path with respect to X-axis
+gnss_y: GNSS path with respect to Y-axis
+
