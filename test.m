@@ -1,5 +1,5 @@
 % Load data
-data = readtable('df_total.csv');
+data = readtable('data/df_total.csv');
 
 % Extract data
 timestamps = data.timestamps / 1000; % Convert to seconds
