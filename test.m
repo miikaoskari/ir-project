@@ -23,9 +23,6 @@ estimated_states = zeros(num_steps, 4);
 
 ay = ay - 9.81;  % Remove gravitational bias
 
-% Verify correction
-fprintf('Corrected ay - mean: %.2f m/s²\n', mean(ay_corrected));
-
 % Main loop
 for i = 1:num_steps
     % Prediction (Constant acceleration model)
