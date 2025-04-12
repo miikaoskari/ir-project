@@ -1,6 +1,8 @@
 % Load data
 data = readtable('data/df_total.csv');
 
+enable_mahal = false;
+
 % Extract data
 timestamps = data.timestamps / 1000; % Convert to seconds
 true_x = data.true_x; true_y = data.true_y;
@@ -44,12 +46,24 @@ for i = 1:num_steps
         H = [1 0 0 0;  % Measurement matrix
              0 1 0 0];
         
-        y = [gnss_x(i); gnss_y(i)] - H * state;
-        S = H * P * H' + R;
-        K = P * H' / S;
-        
-        state = state + K * y;
+        y = [gnss_x(i); gnss_y(i)] - H * state; % innovation residual
+        S = H * P * H' + R; % innovation covariance
+
+        if enable_mahal
+            d2 = y' * (S \ y); % mahalanobis distance
+            threshold = 9.21; % chi-squared threshold 
+
+            if d2 >= threshold
+                fprintf('Measurement rejected at pos (%d, %d)\n', i, d2);
+                % hop to next iteration
+                continue;
+            end
+        end
+
+        K = P * H' / S; % kalman gain
+        state = state + K * y; % update state estimate
         P = (eye(4) - K * H) * P;
+
     end
     
     estimated_states(i,:) = state';
