@@ -23,8 +23,6 @@ R = diag([3^2, 3^2]); % Measurement noise (GNSS)
 num_steps = numel(timestamps);
 estimated_states = zeros(num_steps, 4);
 
-ay = ay - 9.81;  % Remove gravitational bias
-
 % Main loop
 for i = 1:num_steps
     % Prediction (Constant acceleration model)
@@ -38,7 +36,7 @@ for i = 1:num_steps
           dt 0;
           0 dt];
     
-    state = A * state + B * [ax(i); ay(i)];
+    state = A * state + B * [ax(i); ay(i)-9.81]; % remove gravitional bias
     P = A * P * A' + Q;
     
     % Correction (GNSS update)
