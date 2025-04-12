@@ -4,7 +4,7 @@ data = readtable('data/df_total.csv');
 enable_mahal = false;
 
 % Extract data
-timestamps = data.timestamps / 1000; % Convert to seconds
+timestamps = datetime(data.timestamps / 1000, 'ConvertFrom', 'posixtime');
 true_x = data.true_x; true_y = data.true_y;
 true_lat = data.true_lat; true_lon = data.true_lon;
 ax = data.ax; ay = data.ay;
@@ -12,7 +12,8 @@ gnss_x = data.gnss_x; gnss_y = data.gnss_y;
 gnss_lat = data.gnss_lat; gnss_lon = data.gnss_lon;
 
 % Basic EKF Configuration
-dt = mean(diff(timestamps)); % Average time step
+dt_values = seconds(diff(timestamps)); % Average time step
+dt = mean(dt_values);
 state = [gnss_x(1); gnss_y(1); 0; 0]; % [x; y; vx; vy]
 P = diag([10, 10, 1, 1]); % Initial covariance
 
