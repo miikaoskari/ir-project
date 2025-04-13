@@ -14,3 +14,10 @@ Also, you can apply sensor fusion techniques with IMU data.
 
 Data is given as a .csv file found under data/
 
+## Running
+
+Create python venv with `python -m venv .venv`.
+
+Install dependencies with `pip install -r requirements.txt`.
+
+Run model generation with `python model.py`.
